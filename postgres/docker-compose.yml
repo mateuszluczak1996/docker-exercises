@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+    postgres-db:
+        image: postgres
+        environment:
+            # required
+            POSTGRES_PASSWORD: qwerty123
+            # optional (postgres by default)
+            POSTGRES_USER: mateusz
+            # optional (the same as user by default)
+            POSTGRES_DB: postgres_db
+        volumes:
+            - db-data:/var/lib/postgresql/data
+        networks:
+            - db-network
+
+    admin-panel:
+        image: adminer
+        ports:
+            - 8080:8080
+        networks:
+            - db-network
+
+#create own network
+networks:
+        db-network:
+volumes:
+        db-data:
